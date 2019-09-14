@@ -7,23 +7,31 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.beeete2.android.examples.darktheme.ui.home.HomeFragment"
+        android:name="com.beeete2.android.examples.darktheme.presentation.ui.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.beeete2.android.examples.darktheme.ui.dashboard.DashboardFragment"
+        android:name="com.beeete2.android.examples.darktheme.presentation.ui.dashboard.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.beeete2.android.examples.darktheme.ui.notifications.NotificationsFragment"
+        android:name="com.beeete2.android.examples.darktheme.presentation.ui.notifications.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/navigation_settings"
-        android:name="com.beeete2.android.examples.darktheme.ui.settings.SettingsFragment"
-        android:label="@string/title_settings" />
+        android:name="com.beeete2.android.examples.darktheme.presentation.ui.settings.SettingsFragment"
+        android:label="@string/title_settings" >
+        <action
+            android:id="@+id/action_navigation_settings_to_settings_dark_theme"
+            app:destination="@id/settings_dark_theme" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings_dark_theme"
+        android:name="com.beeete2.android.examples.darktheme.presentation.ui.settings.darktheme.DarkThemeFragment"
+        android:label="DarkThemeFragment" />
 </navigation>

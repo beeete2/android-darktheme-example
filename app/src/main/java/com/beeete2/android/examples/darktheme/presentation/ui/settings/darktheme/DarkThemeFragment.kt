@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -30,6 +31,12 @@ class DarkThemeFragment : DaggerFragment() {
     private val viewModel: DarkThemeViewModel by viewModels { viewModelFactory }
 
     private val controller = Controller()
+
+    private val items = arrayOf(
+        DarkThemeItem(SettingDarkTheme.SYSTEM_DEFAULT, R.string.item_dark_theme_system_default),
+        DarkThemeItem(SettingDarkTheme.DAY, R.string.item_dark_theme_day),
+        DarkThemeItem(SettingDarkTheme.NIGHT, R.string.item_dark_theme_night)
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,35 +65,24 @@ class DarkThemeFragment : DaggerFragment() {
         override fun buildModels(data: SettingsEntity?) {
             data ?: return
 
-            settingSelectableItemView {
-                id("system_default")
-                title(R.string.item_dark_theme_system_default)
-                done(data.darkTheme == SettingDarkTheme.SYSTEM_DEFAULT)
-                onClickListener { _ ->
-                    viewModel.saveDarkTheme(SettingDarkTheme.SYSTEM_DEFAULT)
-                    AppCompatDelegate.setDefaultNightMode(SettingDarkTheme.SYSTEM_DEFAULT.toNightMode())
-                }
-            }
-            settingSelectableItemView {
-                id("day")
-                title(R.string.item_dark_theme_day)
-                done(data.darkTheme == SettingDarkTheme.DAY)
-                onClickListener { _ ->
-                    viewModel.saveDarkTheme(SettingDarkTheme.DAY)
-                    AppCompatDelegate.setDefaultNightMode(SettingDarkTheme.DAY.toNightMode())
-                }
-            }
-            settingSelectableItemView {
-                id("night")
-                title(R.string.item_dark_theme_night)
-                done(data.darkTheme == SettingDarkTheme.NIGHT)
-                onClickListener { _ ->
-                    viewModel.saveDarkTheme(SettingDarkTheme.NIGHT)
-                    AppCompatDelegate.setDefaultNightMode(SettingDarkTheme.NIGHT.toNightMode())
+            for (item in items) {
+                settingSelectableItemView {
+                    id(item.darkTheme.name)
+                    title(item.title)
+                    done(data.darkTheme == item.darkTheme)
+                    onClickListener { _ ->
+                        viewModel.saveDarkTheme(item.darkTheme)
+                        AppCompatDelegate.setDefaultNightMode(item.darkTheme.toNightMode())
+                    }
                 }
             }
         }
     }
+
+    private data class DarkThemeItem(
+        val darkTheme: SettingDarkTheme,
+        @StringRes val title: Int
+    )
 
     @Module
     abstract class DarkThemeFragmentModule {
@@ -96,7 +92,7 @@ class DarkThemeFragment : DaggerFragment() {
         internal abstract fun provideViewModel(viewModel: DarkThemeViewModel): ViewModel
     }
 
-    private fun SettingDarkTheme.toNightMode() = when(this) {
+    private fun SettingDarkTheme.toNightMode() = when (this) {
         SettingDarkTheme.SYSTEM_DEFAULT -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         SettingDarkTheme.DAY -> AppCompatDelegate.MODE_NIGHT_NO
         SettingDarkTheme.NIGHT -> AppCompatDelegate.MODE_NIGHT_YES

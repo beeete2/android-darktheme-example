@@ -7,6 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-    <style name="Toolbar" parent="ThemeOverlay.AppCompat.DayNight.ActionBar" />
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.DayNight.ActionBar">
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
 
 </resources>

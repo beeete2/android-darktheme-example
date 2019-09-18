@@ -62,7 +62,7 @@ class SettingsFragment : DaggerFragment() {
                 id("dark_theme")
                 title(R.string.setting_item_dark_theme)
                 summary(data.darkTheme.toStringRes())
-                onClickListener { _ -> navigate(R.id.settings_dark_theme) }
+                onClickListener { _ -> navigate(R.id.action_navigation_settings_to_settings_dark_theme) }
             }
         }
     }

@@ -17,7 +17,7 @@ class App : DaggerApplication() {
     override fun onCreate() {
         super.onCreate()
 
-        AppCompatDelegate.setDefaultNightMode(settingsModel.getDarkTheme().toNightMode())
+        AppCompatDelegate.setDefaultNightMode(settingsModel.darkTheme.toNightMode())
     }
 
 

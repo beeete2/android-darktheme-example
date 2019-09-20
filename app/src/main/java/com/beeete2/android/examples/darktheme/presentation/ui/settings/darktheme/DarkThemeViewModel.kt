@@ -14,7 +14,7 @@ class DarkThemeViewModel @Inject constructor(
     val settings: LiveData<SettingsEntity> = settingsModel.settings
 
     fun saveDarkTheme(darkTheme: SettingDarkTheme) {
-        settingsModel.setDarkTheme(darkTheme)
+        settingsModel.darkTheme = darkTheme
     }
 
 }
